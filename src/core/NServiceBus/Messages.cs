@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace NServiceBus.Messages
 {
@@ -6,6 +7,7 @@ namespace NServiceBus.Messages
 	/// Defines a message indicating that a transport is ready to
 	/// receive a message.
 	/// </summary>
+    [DataContract]
     [Serializable]
     public class ReadyMessage : IMessage 
     {
@@ -13,6 +15,7 @@ namespace NServiceBus.Messages
         /// Exposes whether or not previous ready messages from the same
         /// sender should be cleared.
         /// </summary>
+        [DataMember(Order = 1)]
         public bool ClearPreviousFromThisAddress { get; set; }
     }
 }

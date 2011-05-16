@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace NServiceBus.Grid.Messages
 {
@@ -7,11 +8,13 @@ namespace NServiceBus.Grid.Messages
     /// worker threads handling messages. 
     /// </summary>
     [Serializable]
+    [DataContract]
     public class ChangeNumberOfWorkerThreadsMessage : IMessage
     {
         /// <summary>
         /// Target number of worker threads.
         /// </summary>
+        [DataMember(Order=1)]
         public int NumberOfWorkerThreads { get; set; }
     }
 }

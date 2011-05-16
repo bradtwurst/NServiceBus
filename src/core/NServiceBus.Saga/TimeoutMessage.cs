@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace NServiceBus.Saga
 {
@@ -7,6 +8,7 @@ namespace NServiceBus.Saga
 	/// </summary>
     [Serializable]
     [Recoverable]
+    [DataContract]
     public class TimeoutMessage : ISagaMessage
     {
         /// <summary>
@@ -57,6 +59,7 @@ namespace NServiceBus.Saga
 		/// Gets/sets the date and time at which the timeout message is due to expire.
         /// Values are stored as <see cref="DateTimeKind.Utc" />.
 		/// </summary>
+        [DataMember(Order=1)]
         public DateTime Expires
         {
             get { return expires; }
@@ -66,18 +69,21 @@ namespace NServiceBus.Saga
 		/// <summary>
 		/// Gets/sets the Id of the workflow the TimeoutMessage is connected to.
 		/// </summary>
+        [DataMember(Order=2)]
         public Guid SagaId { get; set; }
 
         /// <summary>
         /// Should be used for data to differentiate between various
         /// timeout occurrences.
         /// </summary>
+        [DataMember(Order=3)]
         public object State { get; set; }
 
         /// <summary>
         /// When true, signals to the timeout manager that all other <see cref="TimeoutMessage"/> objects
         /// can be cleared for the given <see cref="SagaId"/>.
         /// </summary>
+        [DataMember(Order=4)]
         public bool ClearTimeout { get; set; }
 
 		/// <summary>

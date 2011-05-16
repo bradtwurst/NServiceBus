@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Serialization;
 
 namespace NServiceBus.Unicast.Transport
 {
@@ -7,6 +8,7 @@ namespace NServiceBus.Unicast.Transport
 	/// of a specific type.
 	/// </summary>
     [Serializable]
+    [DataContract]
     public class SubscriptionMessage : IMessage
     {
 		/// <summary>
@@ -30,12 +32,14 @@ namespace NServiceBus.Unicast.Transport
 		/// Gets/sets the name of the message type to subscribe to or 
 		/// unsubscribe from.
 		/// </summary>
+        [DataMember(Order = 1)]
         public string TypeName { get; set; }
 
 		/// <summary>
 		/// Gets/sets whether the SubscriptionMessage is to add or
 		/// remove a subscription.
 		/// </summary>
+        [DataMember(Order = 2)]
         public SubscriptionType SubscriptionType { get; set; }
     }
 

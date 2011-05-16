@@ -37,7 +37,7 @@ namespace NServiceBus.Host.Internal
                         //make sure we don't call the Init method again, unless there's an explicit impl
                         var initMap = specifier.GetType().GetInterfaceMap(typeof (IWantCustomInitialization));
                         foreach (var m in initMap.TargetMethods)
-                            if (!m.IsPublic && m.Name == "NServiceBus.IWantCustomInitialization.Init")
+                            if (!m.IsPublic && (m.Name == "NServiceBus.IWantCustomInitialization.Init" || m.Name == "NServiceBus_IWantCustomInitialization_Init"))
                             {
                                 (specifier as IWantCustomInitialization).Init();
                                 called = true;
@@ -48,7 +48,7 @@ namespace NServiceBus.Host.Internal
                             //call the regular Init method if IWantCustomLogging was an explicitly implemented method
                             var logMap = specifier.GetType().GetInterfaceMap(typeof(IWantCustomLogging));
                             foreach (var tm in logMap.TargetMethods)
-                                if (!tm.IsPublic && tm.Name == "NServiceBus.IWantCustomLogging.Init")
+                                if (!tm.IsPublic && (tm.Name == "NServiceBus.IWantCustomLogging.Init" || tm.Name == "NServiceBus_IWantCustomLogging_Init"))
                                     (specifier as IWantCustomInitialization).Init();
                         }
                    }
